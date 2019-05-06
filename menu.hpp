@@ -1,0 +1,6 @@
+#ifndef GROUP_PROJECT_MENU_HPP
+#define GROUP_PROJECT_MENU_HPP
+
+int startMenu();
+
+#endif //GROUP_PROJECT_MENU_HPP
