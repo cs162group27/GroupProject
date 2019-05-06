@@ -46,7 +46,7 @@ int returnInt()
 
         if (input.empty())
         {
-            cout << "You entered an empty string. This will be treated as '0'." << endl;
+            cout << "You entered an empty string." << endl;
         }
     } while (!(isInt(input)));
 
@@ -95,34 +95,4 @@ bool isInRange(int num, int min, int max)
     }
 
     return true;
-}
-
-int getInt()
-{
-    //user input is stored as string
-    string input;
-    //integer variable to store the returned unsigned integer
-    int any;
-
-    do
-    {
-        //getline will get every character from the string
-        getline(cin, input);
-
-        //the following code taken from
-        //https://stackoverflow.com/questions/16329358/remove-spaces-from-a-string-in-c
-        input.erase(remove(input.begin(), input.end(), ' '), input.end());
-        //end of copied code. this code will remove
-        //all whitespace from the string
-
-        //if the string is found NOT to be an unsigned integer
-        if (!(isInt(input)))
-            cout << "Error.  Please enter an integer." << endl;
-
-    } while (!(isInt(input)));
-
-    //converts string to integer
-    any = atoi(input.c_str());
-
-    return any;
 }
