@@ -1,7 +1,7 @@
 /*********************************************************************
-** Program name:
+** Program name: Group Project
 ** Author: Katie Stutts
-** Date: 4/29/2019
+** Date: 5/6/2019
 ** Description: This file contains three functions that test various
  * levels of input validation.
 *********************************************************************/
