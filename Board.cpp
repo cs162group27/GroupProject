@@ -6,6 +6,9 @@
  *******************************************************************************/
 
 #include "Board.hpp"
+#include "Ant.hpp"
+#include "Doodlebug.hpp"
+#include "Critter.hpp"
 #include <iostream>
 #include <stdlib.h>
 
@@ -49,31 +52,32 @@ int Board::getCols() {
     return cols;
 }
 
-// Initializes the Board to empty squares. Places Critters on Board.
+/* Initializes the Board to empty squares. Places Critters on Board.
+Citation for implementation: https://stackoverflow.com/questions/27430523/2d-array-of-object-pointers-in-c */
 void Board::initialize() {
     srand(9);
-    board = new char * [rows];
+    board = new Critter ** [rows];
     
     for (int i = 0; i < rows; i++) {
-        board[i] = new char [cols];
+        board[i] = new Critter * [cols];
     }
     
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            board [i][j] = ' ';
+            board [i][j] = new Critter();
         }
     }
     
     for (int i = 0; i < ants; i++) {
         aRow = rand()%rows;
         aCol = rand()%cols;
-        board[aRow][aCol] = antSpace;
+        board[aRow][aCol] = new Ant;
     }
     
     for (int i = 0; i < doodlebugs; i++) {
         dRow = rand()%rows;
         dCol = rand()%cols;
-        board[dRow][dCol] = doodlebugSpace;
+        board[dRow][dCol] = new Doodlebug;
     }
 }
 
@@ -81,7 +85,10 @@ void Board::initialize() {
 void Board::display() {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            std::cout << board[i][j];
+            if (board[i][j] == NULL)
+                std::cout << ' ';
+            else
+                std::cout << board[i][j]->cri.getAscii();
         }
         std::cout << std::endl;
     }
