@@ -61,11 +61,11 @@ void Board::initialize() {
     for (int i = 0; i < rows; i++) {
         board[i] = new Critter * [cols];
     }
-    
+    /*
     for (int j = 0; j < cols; j++) {
         board[i][j] = new Critter();
     }
-    
+    */
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             board [i][j] = NULL;
