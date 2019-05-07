@@ -6,10 +6,11 @@
 
 #ifndef Board_hpp
 #define Board_hpp
+#include "Critter.hpp"
 
 class Board {
 private:
-    char ** board;
+    extern Critter *** board;
     int rows, cols, ants, doodlebugs, numRows, numCols, numAnts, numDoodlebugs,
     aRow, aCol, dRow, dCol;
     char currentSpace = ' ';
