@@ -17,6 +17,4 @@ bool isInt (std::string input);
 bool isInRange(int num, int min, int max);
 
 
-
-
 #endif //GROUP_PROJECT_INPUTVALIDATION_HPP
