@@ -50,13 +50,15 @@ int startMenu()
 // placeholder code for extra credit. will be implemented in main game/simulation class.
 
 /*
-int row, col, steps, startRow, startCol, stepCount = 0;
+int row, col, steps, startRow, startCol, stepCount, numAnts, numDoodleBugs = 0;
 
 if (randStart == 0)
 {
 row = getStartInfo("Enter an integer to represent the number of rows for the board.", 2, 100);
 col = getStartInfo("Enter an integer to represent the number of columns for the board.", 2, 100);
 steps = getStartInfo("Enter an integer to represent the total number of steps.", 1, 1000);
+numAnts = getStartInfo("Enter an integer to represent the total number of ants.", 1, 100);
+numDoodleBugs = getStartInfo("Enter an integer to represent the total number of doodle bugs.", 1, 100);
 startRow = getStartInfo("Enter an integer to represent the starting row of the ant.", 1, row - 1);
 startCol = getStartInfo("Enter an integer to represent the starting column of the ant.", 1, col - 1);
 }
