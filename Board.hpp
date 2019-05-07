@@ -10,7 +10,7 @@
 
 class Board {
 private:
-    extern Critter *** board;
+    Critter *** board;
     int rows, cols, ants, doodlebugs, numRows, numCols, numAnts, numDoodlebugs,
     aRow, aCol, dRow, dCol;
     char currentSpace = ' ';
