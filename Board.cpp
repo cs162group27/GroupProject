@@ -137,7 +137,7 @@ void Board::extraCredit() {
     while (dataGatherer == false) {
         std::cout << "Please choose the number of doodlebugs for your board." << std::endl;
         std::cin >> numDoodlebugs;
-        if (numAnts > 0 && numDoodlebugs < numAnts) {
+        if (numDoodlebugs > 0 && numDoodlebugs < numAnts) {
             setDoodlebugs(numDoodlebugs);
             dataGatherer = true;
         }
