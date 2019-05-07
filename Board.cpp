@@ -27,6 +27,11 @@ void Board::setCols(int c) {
     cols = c;
 }
 
+// Gets the number of columns for the Board.
+int Board::getCols() {
+    return cols;
+}
+
 // Gets number of Ants.
 int Board::getAnts() {
     return ants;
@@ -47,9 +52,14 @@ void Board::setDoodlebugs(int d) {
     doodlebugs = d;
 }
 
-// Gets the number of columns for the Board.
-int Board::getCols() {
-    return cols;
+// Gets the number of steps to take.
+int getSteps() {
+    return steps;
+}
+
+// Sets number of steps.
+void setSteps(int s) {
+    steps = s;
 }
 
 /* Initializes the Board to empty squares. Places Critters on Board.
@@ -172,5 +182,33 @@ void Board::extraCredit() {
             std::cin.clear();
             std::cin.ignore();
         }
+    }
+}
+
+// Runs the game. Displays the Board after each step.
+void Board::run() {
+    for (int k = 0; k < steps; i++) {
+         for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++) {
+                if(board[i][j] != NULL)
+                {
+                    if (ant.getAge() > 3) {
+                       ant.breed();
+                       ant.setAge(0);
+                    }
+                    if (doodlebug.getAge() > 8) {
+                        doodlebug.breed();
+                        doodlebug.setAge(0);
+                    }
+                    if(checkOffGrid() && checkOccupied())
+                    {
+                        board[i][j]->move();
+                    }
+                    board[i][j]->incrementAge();
+                }
+            }
+        }
+	    display();
+        std::cout << std::endl;
     }
 }
