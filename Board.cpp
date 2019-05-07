@@ -158,4 +158,19 @@ void Board::extraCredit() {
             std::cin.ignore();
         }
     }
+    // THIS IS A LOOP TO GET THE NUMBER OF TIME STEPS
+    while (dataGatherer == true) {
+        std::cout << "Please choose the number of time steps you would like -- "
+                            "e.g. 10, 100, 1000, 10000..." << std::endl;
+        std::cin >> steps;
+        
+        if (steps > 0 && steps <= 15000) {
+            dataGatherer = false;
+        }
+        else {
+            std::cout << "That is not a valid input. Please try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+    }
 }
