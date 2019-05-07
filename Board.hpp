@@ -12,7 +12,7 @@ class Board {
 private:
     Critter *** board;
     int rows, cols, ants, doodlebugs, numRows, numCols, numAnts, numDoodlebugs,
-    aRow, aCol, dRow, dCol;
+    aRow, aCol, dRow, dCol, steps, numSteps;
     char currentSpace = ' ';
     char antSpace = 'O';
     char doodlebugSpace = 'X';
@@ -25,11 +25,14 @@ public:
     void setCols(int);
     int getAnts();
     void setAnts(int);
+    int getSteps();
+    void setSteps(int);
     int getDoodlebugs();
     void setDoodlebugs(int);
     void initialize();
     void display();
     void deleteBoard();
     void extraCredit();
+    void run();
 };
 #endif /* Board_hpp */
