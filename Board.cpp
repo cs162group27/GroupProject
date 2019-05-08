@@ -154,18 +154,18 @@ Citation for implementation: https://stackoverflow.com/questions/27430523/2d-arr
 //}
 
 // Displays the Board.
-//void Board::display()
-//{
-//    for (int i = 0; i < rows; i++) {
-//        for (int j = 0; j < cols; j++) {
-//            if (board[i][j] == NULL)
-//                cout << ' ';
-//            else
-//                cout << board[i][j]->cri.getAscii();
-//        }
-//        cout << endl;
-//    }
-//}
+void Board::display()
+{
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (board[i][j] == NULL)
+                cout << ' ';
+            else
+                cout << board[i][j]->cri.getAscii();
+        }
+        cout << endl;
+    }
+}
 
 // Prompts user to set up the Board.
 //void Board::extraCredit()
@@ -256,37 +256,37 @@ Citation for implementation: https://stackoverflow.com/questions/27430523/2d-arr
 //}
 
 // Runs the game. Displays the Board after each step.
-//void Board::run()
-//{
-//    for (int k = 0; k < steps; k++)
-//    {
-//         for (int i = 0; i < rows; i++)
-//         {
-//            for(int j = 0; j < cols; j++)
-//            {
-//                if(board[i][j] != NULL)
-//                {
-//                    if (ant.getAge() > 3)
-//                    {
-//                       ant.breed();
-//                       ant.setAge(0);
-//                    }
-//                    if (doodlebug.getAge() > 8)
-//                    {
-//                        doodlebug.breed();
-//                        doodlebug.setAge(0);
-//                    }
-//                    if(checkOffGrid() && checkOccupied())
-//                    {
-////                        board[i][j]->move();
-//                          // move should be a function within Critter class, not Board
-//                    }
-////                    board[i][j]->incrementAge();
-//                     // increment age is a function within Critter class, not Board
-//                }
-//            }
-//        }
-//	    display();
-//        cout << endl;
-//    }
-//}
+void Board::run()
+{
+    for (int k = 0; k < steps; k++)
+    {
+         for (int i = 0; i < rows; i++)
+         {
+            for(int j = 0; j < cols; j++)
+            {
+                if(board[i][j] != NULL)
+                {
+                    if (ant.getAge() > 3)
+                    {
+                       ant.breed();
+                       ant.setAge(0);
+                    }
+                    if (doodlebug.getAge() > 8)
+                    {
+                        doodlebug.breed();
+                        doodlebug.setAge(0);
+                    }
+                    if(checkOffGrid() && checkOccupied())
+                    {
+//                        board[i][j]->move();
+                          // move should be a function within Critter class, not Board
+                    }
+//                    board[i][j]->incrementAge();
+                     // increment age is a function within Critter class, not Board
+                }
+            }
+        }
+	    display();
+        cout << endl;
+    }
+}

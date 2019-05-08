@@ -279,7 +279,7 @@ void Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
             if(count > 1)
             {
                 // Reset temp variables
-                bugX = gridX:
+                bugX = gridX;
                 bugY = gridY;
             }
         }while((occupied || offGrid) && (count < 1));
