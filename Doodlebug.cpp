@@ -5,6 +5,8 @@
 #include "Doodlebug.hpp"
 #include "Critter.hpp"
 
+#include <random>
+
 Doodlebug::Doodlebug():Critter(0, 'O')
 {
     antsEaten = 0;
