@@ -6,11 +6,23 @@
 
 #include <iostream>
 #include "Board.hpp"
-Board bd;
-int main() {
-    bd.extraCredit();
-    bd.initialize();
-    bd.display();
+#include "Ant.hpp"
+#include "Critter.hpp"
+#include "Doodlebug.hpp"
+#include "inputValidation.hpp"
+#include "menu.hpp"
+
+
+
+int main()
+{
+    startMenu();
+
+//    Board bd;
+//
+//    //bd.extraCredit();
+//    bd.initialize();
+//    bd.display();
     
     return 0;
 }

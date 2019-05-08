@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "menu.hpp"
+#include "Board.hpp"
 #include "inputValidation.hpp"
 
 using std::cout;
@@ -35,6 +36,14 @@ int startMenu()
     if (selection == 1)
     {
         cout << "Let's start the simulation ..." << endl;
+        cout << "Please enter the number of steps." << endl;
+        int steps = returnInt();
+        while (steps <= 0 || steps > 500) // arbirtary max of 500 steps
+        {
+            steps = returnInt();
+        }
+        Board bd(steps);
+
     }
     else if (selection == 2)
     {

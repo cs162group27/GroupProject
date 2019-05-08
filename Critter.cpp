@@ -11,8 +11,8 @@
 ******************************************************************************/
 Critter::Critter(int age, char ascii)
 {
-//	setXCoord(xCoord);
-//	setYCoord(yCoord);
+	setXCoord(xCoord);
+	setYCoord(yCoord);
 	setAge(age);
 	setAscii(ascii);
 }
@@ -20,10 +20,10 @@ Critter::Critter(int age, char ascii)
 /******************************************************************************
 ** Description: Copy constructor.
 ******************************************************************************/
-Critter::Critter(const Critter &obj);
+Critter::Critter(const Critter &obj)
 {
-//	setXCoord(obj.xCoord);
-//	setYCoord(obj.yCoord);
+	setXCoord(obj.xCoord);
+	setYCoord(obj.yCoord);
 	setAge(obj.age);
 	setAscii(obj.ascii);
 }
@@ -31,7 +31,7 @@ Critter::Critter(const Critter &obj);
 /******************************************************************************
 ** Description: Set Methods.
 ******************************************************************************/
-/*void Critter::setXCoord(int xCoord)
+void Critter::setXCoord(int xCoord)
 {
 	this->xCoord = xCoord;
 }
@@ -40,7 +40,7 @@ void Critter::setYCoord(int yCoord)
 {
 	this->yCoord = yCoord;
 }
-*/
+
 void Critter::setAge(int age)
 {
 	this->age = age;
@@ -69,7 +69,7 @@ int Critter::getAge()
 	return age;
 }
 
-int Critter::getAscii()
+char Critter::getAscii()
 {
 	return ascii;
 }

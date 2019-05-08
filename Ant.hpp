@@ -23,10 +23,10 @@ public:
 	// Setters & Getters are in Base class
 
 	// Functions that set Ant movement
-	virtual move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols);
+	virtual void move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols);
 
 	// Function that sets Ant's breeding
-	virtual breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols);
+	virtual void breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols);
 };
 #endif
 	

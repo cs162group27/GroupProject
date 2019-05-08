@@ -13,8 +13,8 @@ class Board;	// In order to use Board class pointer
 class Critter
 {
 protected:
-//	int xCoord, 	
-//		yCoord;	// Critter coordinates
+	int xCoord,
+		yCoord;	// Critter coordinates
 	int age;	// Critter age
 	char ascii;	// Critter character on board
 public:
@@ -24,15 +24,15 @@ public:
 	// Copy constructor
 	Critter(const Critter &obj);
 
-	// Setteres
-//	void setXCoord(int xCoord);
-//	void setYCoord(int yCoord);
+	// Setters
+	void setXCoord(int xCoord);
+	void setYCoord(int yCoord);
 	void setAge(int age);
 	void setAscii(char ascii);
 
 	// Getters
-//	int getXCoord();
-//	int getYCoord();
+	int getXCoord();
+	int getYCoord();
 	int getAge();
 	char getAscii();
 

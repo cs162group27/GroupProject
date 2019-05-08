@@ -12,13 +12,14 @@ class Board {
 private:
     Critter *** board;
     int rows, cols, ants, doodlebugs, numRows, numCols, numAnts, numDoodlebugs,
-    aRow, aCol, dRow, dCol, steps, numSteps;
+    aRow, aCol, dRow, dCol, numSteps;
     char currentSpace = ' ';
     char antSpace = 'O';
     char doodlebugSpace = 'X';
     bool dataGatherer = true;
     
 public:
+    Board(int);
     int getRows();
     void setRows(int);
     int getCols();
