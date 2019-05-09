@@ -6,7 +6,7 @@
 #include "Doodlebug.hpp"
 #include "Critter.hpp"
 
-Doodlebug::Doodlebug(): Critter(0, 'O')
+Doodlebug::Doodlebug(): Critter(0, 'X')
 {
     antsEaten = 0;
 }

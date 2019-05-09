@@ -3,4 +3,4 @@ project(Doodle_Bug)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Doodle_Bug main.cpp Ant.cpp Board.cpp Critter.cpp Doodlebug.cpp inputValidation.cpp menu.cpp)
+add_executable(Doodle_Bug main.cpp Ant.cpp Critter.cpp Doodlebug.cpp inputValidation.cpp menu.cpp Board.cpp)

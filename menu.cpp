@@ -42,7 +42,10 @@ int startMenu()
         {
             steps = returnInt();
         }
+
         Board bd(steps);
+
+        bd.display();
 
     }
     else if (selection == 2)

@@ -11,8 +11,9 @@
 class Board {
 private:
     Critter *** board;
-    int rows, cols, ants, doodlebugs, numRows, numCols, numAnts, numDoodlebugs,
+    int rows = 20, cols = 20, ants = 100, doodlebugs = 5, numRows, numCols, numAnts, numDoodlebugs,
     aRow, aCol, dRow, dCol, numSteps;
+    int steps;
     char currentSpace = ' ';
     char antSpace = 'O';
     char doodlebugSpace = 'X';
