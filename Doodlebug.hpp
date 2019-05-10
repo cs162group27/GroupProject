@@ -16,7 +16,7 @@ public:
     Doodlebug(const Doodlebug&);
     void move(Critter***, int, int, int, int) override;
     void breed(Critter***, int, int, int, int) override;
-    int checkAnt(Critter***, int, int);
+    int checkAnt(Critter***, int, int) override;
     void eatAnt(Critter***, int, int);
     void survive(Critter***, int, int);
 

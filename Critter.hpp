@@ -39,6 +39,8 @@ public:
 	// Function that increments age
 	void incrementAge();
 
+	virtual int checkAnt(Critter***, int, int){};
+
 	// Function defined in derived classes - does nothing here
 	virtual void move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) {};
 	

@@ -45,7 +45,7 @@ int startMenu()
 
         Board bd(steps);
 
-        bd.display();
+        bd.run();
 
     }
     else if (selection == 2)

@@ -383,8 +383,9 @@ int Doodlebug::checkAnt(Critter ***grid, int x, int y)
     if(grid[x][y] -> getAscii() == 'O')
     {
         antCount++;
-        return antCount;
     }
+
+    return antCount;
 }
 
 void Doodlebug::eatAnt(Critter ***grid, int x, int y)

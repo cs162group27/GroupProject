@@ -172,3 +172,89 @@ void Board::initialize()
     }
 }
 
+void Board::run()
+{
+    bool occupied = 0;
+    bool offGrid = 0;
+
+    for (int k = 0; k < steps; k++)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < cols; j++)
+            {
+                if(board[i][j] != nullptr)
+                {
+                    if (board[i][j] -> getAge() > 3)
+                    {
+                        board[i][j] -> breed(board, i, j, rows, cols);
+                        board[i][j] -> setAge(0);
+                    }
+                    else if (board[i][j] -> getAge() > 8)
+                    {
+                        board[i][j] -> breed(board, i, j, rows, cols);
+                        board[i][j] -> setAge(0);
+                    }
+
+                    if(board[i][j] == nullptr)
+                    {
+                        occupied = 0;
+                    }
+
+                    else
+                    {
+                        occupied = 1;
+                    }
+
+                    if(i >= rows)
+                    {
+                        offGrid = 1;
+                    }
+
+                    else if(j >= cols)
+                    {
+                        offGrid = 1;
+                    }
+
+                    else if(i < 0)
+                    {
+                        offGrid = 1;
+                    }
+
+                    else if(j < 0)
+                    {
+                        offGrid = 1;
+                    }
+
+                    else
+                    {
+                        offGrid = 0;
+                    }
+
+                    if(offGrid && occupied)
+                    {
+                        board[i][j]->move(board, i, j, rows, cols);
+                        // move should be a function within Critter class, not Board
+                    }
+                    board[i][j]->incrementAge();
+                    // increment age is a function within Critter class, not Board
+                }
+            }
+        }
+
+        display();
+
+        int totalAnts = 0;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+
+                totalAnts += board[i][j]->checkAnt(board, i, j);
+            }
+        }
+
+        cout << totalAnts;
+
+        cout << endl;
+    }
+}
