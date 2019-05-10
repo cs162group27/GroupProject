@@ -46,6 +46,8 @@ int startMenu()
         Board bd(steps);
 
         bd.display();
+        cout << bd.getAnts() << endl;
+        cout << bd.getDoodlebugs() << endl;
 
     }
     else if (selection == 2)

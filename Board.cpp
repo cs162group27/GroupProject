@@ -131,7 +131,7 @@ void Board::setSteps(int s)
     steps = s;
 }
 
-//// Gets the number of steps to take.
+// Gets the number of steps to take.
 int Board::getSteps()
 {
     return steps;
