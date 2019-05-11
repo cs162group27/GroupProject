@@ -15,15 +15,15 @@ public:
     Doodlebug();
     Doodlebug(const Doodlebug&);
 //    void move(int &tempI, int &tempJ);
-    void move(Critter***, int, int, int, int) override;
+    bool move(Critter***, int, int, int, int) override;
     bool breed(Critter***, int, int, int, int) override;
-    int checkAnt(Critter***, int, int) override;
+    int checkAnt(Critter***, int, int); //override;
     void eatAnt(Critter***, int, int);
     void survive(Critter***, int, int);
     bool isOffGrid(int x, int y, int numRows, int numCols);
     bool isAnt(Critter***, int x, int y);
     bool isOccupied(Critter***, int x, int y);
-
+    void incrementAntsEaten() override;
 private:
     int antCount = 0,
         antsEaten;

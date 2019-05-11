@@ -22,9 +22,6 @@ using std::cin;
 ******************************************************************************/
 Board::Board(int s, int r, int c, int a, int d)
 {
-    cout << "Board constructor called." << endl;
-    cout << "number of steps is: " << s << endl;
-   
     // Set initial values
     setSteps(s);
     setRows(r);
@@ -69,6 +66,9 @@ void Board::display()
 
         cout << endl;
     }
+	// Debugging display. Counts how many ants and doodlebugs are actually
+	// on the board, regardless what count says. Can delete once program
+	// works
 	cout << "ants: " << antC << endl;
 	cout << "doodlebugs: " << doodleC << endl;
 }
@@ -161,26 +161,19 @@ int Board::getDoodlebugCount()
 Citation for implementation: https://stackoverflow.com/questions/27430523/2d-array-of-object-pointers-in-c */
 void Board::initialize()
 {
-//    srand(9);		// srand in main to allow seeding with time
     board = new Critter ** [rows];
 
     for (int i = 0; i < rows; i++) {
         board[i] = new Critter *[cols];
     }
-/*	Not creating a Critter object for every block in board
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                board[i][j] = new Critter;
-            }
-        }
-*/
+
   for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             board [i][j] = nullptr;
         }
     }
 
-//    for (int i = 0; i < ants; i++) {
+   // Create ants until required ants number reached
   while(antCount < ants)
   {	
 	aRow = rand()%rows;
@@ -196,7 +189,7 @@ void Board::initialize()
   //  }
 
 //    for (int i = 0; i < doodlebugs; i++) {
-    
+   // Create doodleugs until required doodlebugs number reached 
   while(doodlebugCount < doodlebugs)
   {
 	dRow = rand()%rows;
@@ -211,19 +204,22 @@ void Board::initialize()
   }
   //  }
 }
+
+/******************************************************************************
+** Description: Function that runs board. Displays board and runs Critter 
+**		actions within user inputted time steps.
+******************************************************************************/
 void Board::run()
 {
     // Display initialized board on Day 1
     display();
+    cout << "Initialized Board. Day 1 Start." << endl;
 
     // Run Board. Doodlebugs move, Ant move, Doodlebug breed, Ant breed, 
     // Doodlebug starve, Increment Critters age, Display resulting board 
     // end of day. 
     for (int k = 0; k < steps; k++)
     {
-	// Let user know day/time step
-	cout << "Day " << k+1 << ":" << endl;
-
 	// Reset Critters' moved flag to 0
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
@@ -231,7 +227,8 @@ void Board::run()
 				board[i][j]->setMoved(0);
 
 	// STEP ONE: Move Critters (Doodlebugs move before Ants, requirement)
-      	for (int i = 0; i < rows; i++)
+      	// A: Move doodlebugs first
+	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
             	{
@@ -241,12 +238,27 @@ void Board::run()
 				// Is the Critter a Doodlebug?
 				if(board[i][j]->getAscii() == 'X')
 				{
+				//	cout << "Are we in move doodlebug?" << endl;
 					// Move Doodlebug
-					board[i][j]->move(board, i, j, rows, cols);	
+					board[i][j]->move(board, i, j, rows, cols);
 				}
+			}	
+		}
+	
+	}
+
+      	// B: Move Ants next
+	for (int i = 0; i < rows; i++)
+        {
+           	for(int j = 0; j < cols; j++)
+            	{
+			// Does the pointer point to a Critter?
+               	 	if(board[i][j] != nullptr)
+                	{
 				// Is the Critter an Ant?
-				else if(board[i][j]->getAscii() == 'O')
+				if(board[i][j]->getAscii() == 'O')
 				{
+				//	cout << "Are we in move Ant?" << endl;
 					// Move Ant
 					board[i][j]->move(board, i, j, rows, cols);
 				}
@@ -256,7 +268,8 @@ void Board::run()
 	}
 
 	// STEP TWO: Breed Critters (Doodlebugs breed before Ants, for consistency)
-      	for (int i = 0; i < rows; i++)
+      	// A. Breed Doodlebugs first
+	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
             	{
@@ -274,23 +287,11 @@ void Board::run()
 						// Breed Doodlebug
 						doodlebugBred = board[i][j]->breed(board, i, j, rows, cols);
 
-						// If Doodlebug bred, increment count
+						// If Doodlebug bred, increment count and reset age
 						if(doodlebugBred)
 						{
+				//			cout << "Did we breed Doodlebug?" << endl;
 							doodlebugCount++;
-						}
-					}
-					// Is the Critter an Ant?
-					else if(board[i][j]->getAscii() == 'O')
-					{
-						bool antBred = 0;
-
-						// Breed  Ant
-						antBred = board[i][j]->breed(board, i, j, rows, cols);
-						// If Ant bred, increment count
-						if(antBred)
-						{
-							antCount++;
 						}
 					}
 				}
@@ -299,88 +300,49 @@ void Board::run()
 	
 	}
 
-	cout << "End of day " << k+1 << endl;
-	display();
+	// B. Breed Ants next
+	for (int i = 0; i < rows; i++)
+        {
+           	for(int j = 0; j < cols; j++)
+            	{
+                    // Only breed if there is space on the board
+                    if((doodlebugCount+antCount) < (rows*cols))
+                    {
+                        // Does the pointer point to a Critter?
+                        if(board[i][j] != nullptr)
+                        {
+                            // Is the Critter an Ant?
+                            if(board[i][j]->getAscii() == 'O')
+                            {
+                                bool antBred = 0;
 
+                                // Breed  Ant
+                                antBred = board[i][j]->breed(board, i, j, rows, cols);
+                                
+                                // If Ant bred, increment count and reset Ant age
+                                if(antBred)
+                                {
+                                    antCount++;
+                                }
+                            }
+                        }
+                    }
+                }
+        }
+
+	// STEP 3: Starve
+	// Put starve code here
+
+	// STEP 4: Increment Critters' ages
 	// Increment Critters' ages
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
 			if(board[i][j] != nullptr)
 				board[i][j]->incrementAge();
-     }
-}
-		/*
-                    if (board[i][j] -> getAge() > 3)
-                    {
-                        board[i][j] -> breed(board, i, j, rows, cols);
-                        board[i][j] -> setAge(0);
-                    }
-                    else if (board[i][j] -> getAge() > 8)
-                    {
-                        board[i][j] -> breed(board, i, j, rows, cols);
-                        board[i][j] -> setAge(0);
-                    }
-                    if(board[i][j] == nullptr)
-                    {
-                        occupied = 0;
-                    }
-
-                    else
-                    {
-                        occupied = 1;
-                    }
-
-                    if(i >= rows)
-                    {
-                        offGrid = 1;
-                    }
-
-                    else if(j >= cols)
-                    {
-                        offGrid = 1;
-                    }
-
-                    else if(i < 0)
-                    {
-                        offGrid = 1;
-                    }
-
-                    else if(j < 0)
-                    {
-                        offGrid = 1;
-                    }
-
-                    else
-                    {
-                        offGrid = 0;
-                    }
-
-                    if(offGrid && occupied)
-                    {
-                        board[i][j]->move(board, i, j, rows, cols);
-                        // move should be a function within Critter class, not Board
-                    }
-		
-                    board[i][j]->incrementAge();
-                    // increment age is a function within Critter class, not Board
-                }
-            }
+	
+	// STEP 5: Display Board end of day - results of Critter actions.
+	display();
+	cout << "End of day " << k+1 << endl;
         }
-
-        display();
-
-        int totalAnts = 0;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-
-                totalAnts += board[i][j]->checkAnt(board, i, j);
-            }
-        }
-
-        cout << totalAnts;
-
-        cout << endl;
     }
-*/
 

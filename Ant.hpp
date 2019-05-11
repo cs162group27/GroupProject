@@ -24,7 +24,7 @@ public:
 
 	// Functions that set Ant movement
 //	void move(int &tempI, int &tempJ);
-	void move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
+	bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
 
 	// Function that sets Ant's breeding
 	bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;

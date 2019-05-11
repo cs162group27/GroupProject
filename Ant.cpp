@@ -14,7 +14,7 @@ using std::endl;
 **		values to Critter class as well as 1 for age and 'O' for Ant 
 **		char ascii.
 ******************************************************************************/
-Ant::Ant() : Critter(1, 0, 'O') 
+Ant::Ant() : Critter(0, 0, 'O') 
 {
 }
 
@@ -32,108 +32,124 @@ Ant::Ant (const Ant &obj) : Critter(obj.age, obj.moved, obj.ascii)
 **		selected direction is occupied or would move Ant off the grid,
 **		then Ant stays in current cell.
 ******************************************************************************/
-//void Ant::move(int &tempI, int &tempJ)
-void Ant::move (Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
+bool Ant::move (Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
 {
-	int randNum = 0;
-	int tempX = 0;	// Variables to hold xCoord and yCoord
-	int tempY = 0;
+	// Only move Ant if Ant hasn't already moved this turn
+	if(!moved)
+	{
+		int randNum = 0;
+		int tempX = 0;	// Variables to hold xCoord and yCoord
+		int tempY = 0;
 
-	std::random_device seed; // Will be used to obtain a seed for
-				 // the random number engine
-	std::mt19937 gen(seed()); // Standard mersenne_twister_engine seeded
-				  // with seed()
-	std::uniform_int_distribution<> dis(1, 4);
+		std::random_device seed; // Will be used to obtain a seed for
+					 // the random number engine
+		std::mt19937 gen(seed()); // Standard mersenne_twister_engine seeded
+					  // with seed()
+		std::uniform_int_distribution<> dis(1, 4);
 
-	randNum = dis(gen);	// Assign generated random number to variable
+		randNum = dis(gen);	// Assign generated random number to variable
 
 
-	// Do not move Ant yet. Assign temporary variables and check
-	// neighboring cells.
-	// If 1 = East/Right
-	if(randNum == 1)
-	{
-		tempX = tempI + 1;
-		tempY = tempJ;
-	}
-	// If 2 == South/Down
-	else if(randNum == 2)
-	{
-		tempX = tempI;
-		tempY = tempJ + 1;
-	}
-	// If 3 == West/Left
-	else if(randNum == 3)
-	{
-		tempX = tempI - 1;
-		tempY = tempJ;
-	}
-	// Else 4 == North/Up
-	else
-	{
-		tempX = tempI;
-		tempY = tempJ - 1;
-	}
-
-	// Now, see if neighboring cell is occupied or off the grid
-	bool occupied = 0;	// Variable to see if cell is occupied.
-	bool offGrid = 0;	// Variable to see if cell is off grid.
-
-	// Check if neighboring cell is off the grid.
-	// Moving clockwise
-	// Are the coordinates at the East/Right edge of the grid?
-	if(tempX >= numRows)
-	{
-		offGrid = 1;
-	}
-	// Are the coordinates at the South/Bottom edge of the grid?
-	else if(tempY >= numCols)
-	{
-		offGrid = 1;
-	}
-	// Are the coordinates at the West/Left edge of the grid?
-	else if(tempX < 0)
-	{
-		offGrid = 1;
-	}
-	// Are the coordinates the the North/Top edge of the grid?
-	else if(tempY < 0) 
-	{
-		offGrid = 1;
-	}
-	// Coordinates are within limits 
-	else
-	{
-		offGrid = 0;
-	}
-	
-	// If not offgrid, check if occupied
-	if(!offGrid)
-	{
-		// Is there no Ant or Doodlebug in coordinates?
-		if(grid[tempX][tempY] == nullptr)
+		// Do not move Ant yet. Assign temporary variables and check
+		// neighboring cells.
+		// If 1 = East/Right
+		if(randNum == 1)
 		{
-			occupied = 0;
+			tempX = tempI + 1;
+			tempY = tempJ;
 		}
-		else 
-		{ // There is an Ant or Doodlebug
-			occupied = 1;
+		// If 2 == South/Down
+		else if(randNum == 2)
+		{
+			tempX = tempI;
+			tempY = tempJ + 1;
+		}
+		// If 3 == West/Left
+		else if(randNum == 3)
+		{
+			tempX = tempI - 1;
+			tempY = tempJ;
+		}
+		// Else 4 == North/Up
+		else
+		{
+			tempX = tempI;
+			tempY = tempJ - 1;
+		}
+
+		// Now, see if neighboring cell is occupied or off the grid
+		bool occupied = 0;	// Variable to see if cell is occupied.
+		bool offGrid = 0;	// Variable to see if cell is off grid.
+
+		// Check if neighboring cell is off the grid.
+		// Moving clockwise
+		// Are the coordinates at the East/Right edge of the grid?
+		if(tempX >= numRows)
+		{
+			offGrid = 1;
+		}
+		// Are the coordinates at the South/Bottom edge of the grid?
+		else if(tempY >= numCols)
+		{
+			offGrid = 1;
+		}
+		// Are the coordinates at the West/Left edge of the grid?
+		else if(tempX < 0)
+		{
+			offGrid = 1;
+		}
+		// Are the coordinates the the North/Top edge of the grid?
+		else if(tempY < 0) 
+		{
+			offGrid = 1;
+		}
+		// Coordinates are within limits 
+		else
+		{
+			offGrid = 0;
 		}
 		
-		// If not offgrid, have no adjacent critters, and 
-		// haven't moved this day, then Ant moves
-		if(!offGrid && !occupied && !(grid[tempI][tempJ]->getMoved()))
+		// If not offgrid, check if occupied
+		if(!offGrid)
 		{
-			// Store new direction's pointer
-			Critter *tempPtr = grid[tempX][tempY];
+			// Is there no Ant or Doodlebug in coordinates?
+			if(grid[tempX][tempY] == nullptr)
+			{
+				occupied = 0;
+			}
+			else 
+			{ // There is an Ant or Doodlebug
+				occupied = 1;
+			}
 			
-			// Swap pointer values
-			grid[tempX][tempY] = grid[tempI][tempJ];	
-			grid[tempI][tempJ] = tempPtr;
+			// If not offgrid, have no adjacent critters, and 
+			// haven't moved this day, then Ant moves
+			if(!offGrid && !occupied)
+			{
+				// Store new direction's pointer
+				Critter *tempPtr = grid[tempX][tempY];
+				
+				// Swap pointer values
+				grid[tempX][tempY] = grid[tempI][tempJ];	
+				grid[tempI][tempJ] = tempPtr;
 			
-			// Set Critters' moved flag for the day
-			grid[tempX][tempY]->setMoved(1);
+				grid[tempX][tempY]->setMoved(1);
+	
+				return 1;	
+			}
+			else // offGrid or occupied, doesn't move
+			{
+				return 0;
+			}
 		}
+		else // offGrid, doesn't move
+		{
+			return 0;
+		}
+	}
+	else // Already moved this turn, so doesn't move
+	{
+		return 0;
 	}
 }
 
@@ -150,7 +166,7 @@ void Ant::move (Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
 bool Ant::breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
 {
 	// Check if Ant can breed (age >= 3)
-	if (grid[tempI][tempJ]->getAge() >= 3)
+	if (age >= 3)
 	{
 		// Generate random direction 1=East/Right, 2=South/Down,
 		// 3=West/Left, 4=North/Up
@@ -253,14 +269,6 @@ bool Ant::breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
 				}
 			}
 
-		/*	//  If the loop has gone through all rand numbers and found no avail space
-			if((count1 > 1) && (count2 > 1) && (count3 > 1) && (count4 > 1))
-			{
-				// Reset temp variables
-				tempX = tempI;
-				tempY = tempJ;
-			}
-		*/
 		// Loop until an available neighboring cell is found OR all
 		// neighboring cells are determined to be unavailable.
 		}
@@ -269,13 +277,17 @@ bool Ant::breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols)
 		if(!offGrid && !occupied)
 		{
 			grid[tempX][tempY] = new Ant;	// Create new Ant at tempI and tempJ
-			grid[tempI][tempJ]->setAge(0);	// Reset age
+			setAge(0);	// Reset age of Ant
 			return 1;
 		}
 		else	// No Ants bred
 		{
 			return 0;
 		}
+	}
+	else	// Not old enough to breed
+	{
+		return 0;
 	}
 }
 

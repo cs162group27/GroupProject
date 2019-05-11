@@ -22,6 +22,9 @@ public:
 
 	// Copy constructor
 	Critter(const Critter &obj);
+    
+    // Virtual destructor
+    virtual ~Critter();
 
 	// Setters
 	void setAge(int age);
@@ -36,13 +39,11 @@ public:
 	// Function that increments age
 	void incrementAge();
 
-	virtual int checkAnt(Critter***, int, int){};
-
 	// Function defined in derived classes - does nothing here
-//	virtual void move(int &tempI, int &tempJ) {};
-	virtual void move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) {};
-	
-	// Function defined in derived classes
-	virtual bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) {};
+	// Function that checks if there are Ants in vicinity
+	//virtual int checkAnt(Critter***, int, int) = 0;
+	virtual bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
+	virtual bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
+	virtual void incrementAntsEaten() {};
 };
 #endif

@@ -43,7 +43,7 @@ int startMenu()
             steps = returnInt();
         }
         
-	Board bd(steps, 20, 20, 100, 5); // Default values of 20x20 board,
+	Board bd(steps, 20, 20, 10, 2); // Default values of 20x20 board,
 					// 100 ants, 5 doodlebugs
 
         bd.run();
@@ -55,29 +55,33 @@ int startMenu()
     }
     else if (selection == 3)
     {
-	cout << "You selected the Extra Credit option!" << endl;
-	int steps = getStartInfo("Please enter an integer to represent the total number of steps.", 1, 1000);
-	int row = getStartInfo("Please enter an integer to represent the number of rows for the board.", 2, 800);
-	int col = getStartInfo("Please enter an integer to represent the number of cols for the board.", 2, 800);
-	int maxAnt = (row * col)/2; 
-	cout << "max num of ants is : " << maxAnt << endl;
-	int numAnts = getStartInfo("Please enter an integer to represent the number of ants.", 1, maxAnt);
-	int numDoodleBugs = getStartInfo("Please enter an integer to represent the number of Doodlebugs.", 1, maxAnt - 1);
-	Board bd(steps, row, col, numAnts, numDoodleBugs);
-	bd.run();
+        cout << "Alright, let's make it random! ;)" << endl;
+// placeholder code for extra credit. will be implemented in main game/simulation class.
+/*
+	int row, col, steps, startRow, startCol, stepCount, numAnts, numDoodleBugs = 0;
+
+	if (randStart == 0)
+	{
+		steps = getStartInfo("Enter an integer to represent the total number of steps.", 1, 1000);
+		row = getStartInfo("Enter an integer to represent the number of rows for the board.", 2, 100);
+		col = getStartInfo("Enter an integer to represent the number of columns for the board.", 2, 100);
+		numAnts = getStartInfo("Enter an integer to represent the total number of ants.", 1, 100);
+		numDoodleBugs = getStartInfo("Enter an integer to represent the total number of doodle bugs.", 1, 100);
+
+//	startRow = getStartInfo("Enter an integer to represent the starting row of the ant.", 1, row - 1);
+//	startCol = getStartInfo("Enter an integer to represent the starting column of the ant.", 1, col - 1);
+	}
+//	else
+//	{
+//	row = getStartInfo("Enter an integer to represent the number of rows for the board.", 2, 100);
+//	col = getStartInfo("Enter an integer to represent the number of columns for the board.", 2, 100);
+//	steps = getStartInfo("Enter an integer to represent the total number of steps.", 1, 1000);
+
+//srand(time(0));
+//startRow = (rand() % row - 1) + 1;
+//startCol = (rand() % col - 1) + 1;
+}
+ */
     }
     return selection;
 }
-
-int getStartInfo(std::string displayMessage, int start, int end)
-{
-	cout << displayMessage << endl;
-	int val = returnInt();
-	while(!(isInRange(val, start, end)))
-	{
-		cout << "Error. Please enter an integer between " << start << " and " << end << endl;
-		val = returnInt();
-	}
-	return val;
-}
-
