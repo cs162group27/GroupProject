@@ -301,6 +301,7 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
         Critter *tempPtr = nullptr;
         delete grid[gridX][gridY];
         grid[gridX][gridY] = tempPtr;
+        return 1;
     }	
 	
     else // No Doodlebugs old enough
