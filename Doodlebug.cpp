@@ -324,7 +324,9 @@ void Doodlebug::survive(Critter ***grid, int x, int y)
 {
     if(antsEaten == 0 && age >= 3)
     {
-        grid[x][y] = nullptr;
+	Critter *tempPtr = nullptr;
+	delete grid[x][y];    
+        grid[x][y] = tempPtr;
     }
 }
 
