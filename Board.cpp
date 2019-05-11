@@ -343,10 +343,16 @@ void Board::run()
                     }
                 }
         }
-
-	// STEP 3: Starve
-	// Put starve code here
-
+	
+	//STEP 3: Starve Doodlebugs
+        for(int i = 0; i < rows; i++)
+	{
+		for(int j = 0; j < cols; j++)
+		{
+			survive(board, i, j);
+		}
+	}	
+	
 	// STEP 4: Increment Critters' ages
 	// Increment Critters' ages
 	for(int i = 0; i < rows; i++)
