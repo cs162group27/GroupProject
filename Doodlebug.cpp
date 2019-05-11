@@ -295,6 +295,14 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
 	    return 0;
 	}
     }
+
+    else if(antsEaten == 0 && (age % 3) == 0) //Doodlebug starve or not
+    {
+        Critter *tempPtr = nullptr;
+        delete grid[gridX][gridY];
+        grid[gridX][gridY] = tempPtr;
+    }	
+	
     else // No Doodlebugs old enough
     {
 	return 0;
@@ -320,7 +328,7 @@ void Doodlebug::eatAnt(Critter ***grid, int x, int y)
 //    antsEaten++;
 }
 
-void Doodlebug::survive(Critter ***grid, int x, int y)
+/*void Doodlebug::survive(Critter ***grid, int x, int y)
 {
     if(antsEaten == 0 && age >= 3)
     {
@@ -328,7 +336,7 @@ void Doodlebug::survive(Critter ***grid, int x, int y)
 	delete grid[x][y];    
         grid[x][y] = tempPtr;
     }
-}
+}*/
 
 /******************************************************************************
 ** Description: Function that determines if adjacent space is offgrid.
