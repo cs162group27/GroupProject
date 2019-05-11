@@ -38,7 +38,7 @@ int startMenu()
         cout << "Let's start the simulation ..." << endl;
         cout << "Please enter the number of steps." << endl;
         int steps = returnInt();
-        while (steps <= 0 || steps > 500) // arbirtary max of 500 steps
+        while (steps <= 0 || steps > 15000) // arbirtary max of 15000 steps
         {
             cout << "Error. Please enter a valid integer between 1 and 500." << endl;
 			steps = returnInt();
@@ -57,9 +57,9 @@ int startMenu()
     else if (selection == 3)
     {
         cout << "You selected the Extra Credit option!" << endl;
-		int steps = getStartInfo("Please enter an integer to represent the total number of steps.", 1, 1000);
-		int row = getStartInfo("Please enter an integer to represent the number of rows for the board.", 2, 800);
-		int col = getStartInfo("Please enter an integer to represent the number of cols for the board.", 2, 800);
+		int steps = getStartInfo("Please enter an integer to represent the total number of steps.", 1, 15000);
+		int row = getStartInfo("Please enter an integer to represent the number of rows for the board.", 2, 2000);
+		int col = getStartInfo("Please enter an integer to represent the number of cols for the board.", 2, 2000);
 		int maxAnt = (row * col)/2; 
 		cout << "max num of ants is : " << maxAnt << endl;
 		int numAnts = getStartInfo("Please enter an integer to represent the number of ants.", 1, maxAnt);
