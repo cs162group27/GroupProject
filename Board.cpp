@@ -214,7 +214,13 @@ void Board::run()
     // Display initialized board on Day 1
     display();
     cout << "Initialized Board. Day 1 Start." << endl;
-
+ 
+    // Increment Critters' ages
+    for(int i = 0; i < rows; i++)
+	for(int j = 0; j < cols; j++)
+		if(board[i][j] != nullptr)
+			board[i][j]->incrementAge();
+    
     // Run Board. Doodlebugs move, Ant move, Doodlebug breed, Ant breed, 
     // Doodlebug starve, Increment Critters age, Display resulting board 
     // end of day. 
@@ -240,7 +246,15 @@ void Board::run()
 				{
 				//	cout << "Are we in move doodlebug?" << endl;
 					// Move Doodlebug
-					board[i][j]->move(board, i, j, rows, cols);
+					bool antEaten = 0; // returns if Ant was eaten
+
+					antEaten = board[i][j]->move(board, i, j, rows, cols);
+
+					// if antEaten, decrement antCount
+					if(antEaten)
+					{
+						antCount--;
+					}
 				}
 			}	
 		}

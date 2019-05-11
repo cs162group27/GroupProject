@@ -63,7 +63,7 @@ int startMenu()
 		int maxAnt = (row * col)/2; 
 		cout << "max num of ants is : " << maxAnt << endl;
 		int numAnts = getStartInfo("Please enter an integer to represent the number of ants.", 1, maxAnt);
-		int numDoodleBugs = getStartInfo("Please enter an integer to represent the number of Doodlebugs.", 1, maxAnt - 1);
+		int numDoodleBugs = getStartInfo("Please enter an integer to represent the number of Doodlebugs.", 1, (maxAnt - 1));
 		Board bd(steps, row, col, numAnts, numDoodleBugs);
 		bd.run();
 

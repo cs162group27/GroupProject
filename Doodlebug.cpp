@@ -167,16 +167,16 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			
 				    grid[bugX][bugY]->setMoved(1);
 						
-				    return 1;	
+				    return 0;	// no ant eaten	
 				}
 				else // Offbounds or occupied, doesn't move
 				{
-				    return 0;
+				    return 0; // no ant eaten
 				}
 			}
 			else // Offbounds, doesn't move
 			{
-				return 0;
+				return 0; // no ant eaten
 			}
 		}
 		// Else, an Ant has been found at bugX, bugY coordinates
@@ -199,13 +199,12 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			// Increment Ants eaten
 			grid[bugX][bugY]->incrementAntsEaten();
 			
-						
-			return 1;
+			return 1; // ant eaten
 		}
 	}
 	else	// Already moved this turn
 	{
-		return 0;
+		return 0; // no ant eaten
 	}	
 }
 
