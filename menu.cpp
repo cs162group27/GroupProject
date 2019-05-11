@@ -40,7 +40,7 @@ int startMenu()
         int steps = returnInt();
         while (steps <= 0 || steps > 15000) // arbirtary max of 15000 steps
         {
-            cout << "Error. Please enter a valid integer between 1 and 500." << endl;
+            cout << "Error. Please enter a valid integer between 1 and 15000." << endl;
 			steps = returnInt();
         }
         
