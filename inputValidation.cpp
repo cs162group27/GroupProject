@@ -65,7 +65,7 @@ isInt() takes in a string as an input, and iterates
 ******************************************************/
 bool isInt(string input)
 {
-    for (int i = 0; i < input.size(); i++)
+    for (int i = 0; i < ((signed)input.size()); i++)
     {
         if (!(isdigit(input[i])))
         {
