@@ -9,11 +9,10 @@
 /******************************************************************************
 ** Description: Constructor with default values for protected variables.
 ******************************************************************************/
-Critter::Critter(int age, char ascii)
+Critter::Critter(int age, bool moved, char ascii)
 {
-	setXCoord(xCoord);
-	setYCoord(yCoord);
 	setAge(age);
+	setMoved(moved);
 	setAscii(ascii);
 }
 
@@ -22,28 +21,25 @@ Critter::Critter(int age, char ascii)
 ******************************************************************************/
 Critter::Critter(const Critter &obj)
 {
-	setXCoord(obj.xCoord);
-	setYCoord(obj.yCoord);
 	setAge(obj.age);
+	setMoved(obj.moved);
 	setAscii(obj.ascii);
 }
 
+Critter::~Critter() {
+    
+}
 /******************************************************************************
 ** Description: Set Methods.
 ******************************************************************************/
-void Critter::setXCoord(int xCoord)
-{
-	this->xCoord = xCoord;
-}
-
-void Critter::setYCoord(int yCoord)
-{
-	this->yCoord = yCoord;
-}
-
 void Critter::setAge(int age)
 {
 	this->age = age;
+}
+
+void Critter::setMoved(bool moved)
+{
+	this->moved = moved;
 }
 
 void Critter::setAscii(char ascii)
@@ -54,19 +50,14 @@ void Critter::setAscii(char ascii)
 /******************************************************************************
 ** Description: Get Methods.
 *******************************************************************************/
-/*int Critter::getXCoord()
-{
-	return xCoord;
-}
-
-int Critter::getYCoord()
-{
-	return yCoord;
-}
-*/
 int Critter::getAge()
 {
 	return age;
+}
+
+bool Critter::getMoved()
+{
+	return moved;
 }
 
 char Critter::getAscii()
@@ -81,3 +72,4 @@ void Critter::incrementAge()
 {
 	age++;
 }
+
