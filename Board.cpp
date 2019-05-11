@@ -282,7 +282,7 @@ void Board::run()
 	}
 
 	// STEP TWO: Breed Critters (Doodlebugs breed before Ants, for consistency)
-      	// A. Breed Doodlebugs first
+      	// A. Breed Doodlebugs first and see if they starve or not
 	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
@@ -342,25 +342,16 @@ void Board::run()
                         }
                     }
                 }
-        }
+        }	
 	
-	//STEP 3: Starve Doodlebugs
-        for(int i = 0; i < rows; i++)
-	{
-		for(int j = 0; j < cols; j++)
-		{
-			survive(board, i, j);
-		}
-	}	
-	
-	// STEP 4: Increment Critters' ages
+	// STEP 3: Increment Critters' ages
 	// Increment Critters' ages
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
 			if(board[i][j] != nullptr)
 				board[i][j]->incrementAge();
 	
-	// STEP 5: Display Board end of day - results of Critter actions.
+	// STEP 4: Display Board end of day - results of Critter actions.
 	display();
 	cout << "End of day " << k+1 << endl;
         }
