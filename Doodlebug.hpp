@@ -24,6 +24,7 @@ public:
     bool isAnt(Critter***, int x, int y);
     bool isOccupied(Critter***, int x, int y);
     void incrementAntsEaten() override;
+    bool starveBug(Critter***, int, int) override;
 private:
     int antCount = 0,
         antsEaten;

@@ -24,6 +24,7 @@ Doodlebug::Doodlebug(const Doodlebug &obj):Critter(obj.age, obj.moved, obj.ascii
 ******************************************************************************/
 bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int numCols)
 {
+
 	// Only move Doodlebug if Doodlebug hasn't already moved this turn
 	if(!moved)
 	{
@@ -117,10 +118,6 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			std::uniform_int_distribution<> dis(1, 4);
 			randNum = dis(gen);	// Assign generated randNum to variable
 
-            if((age % 3) == 0)
-            {
-                antsEaten = 0;
-            }
 			// Do not move Doodlebug yet. Assign temporary variables and check
 			// neighboring cells.
 			// If 1 = South
@@ -303,13 +300,6 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
 	}
     }
 
-    else if(antsEaten == 0 && (age % 3) == 0) //Doodlebug starve or not
-    {
-        Critter *tempPtr = nullptr;
-        delete grid[gridX][gridY];
-        grid[gridX][gridY] = tempPtr;
-    }
-
     else // No Doodlebugs old enough
     {
 	return 0;
@@ -425,4 +415,22 @@ void Doodlebug::incrementAntsEaten()
 {
 	antsEaten++;
     antCount--;
+}
+
+bool Doodlebug::starveBug(Critter ***grid, int gridX, int gridY)
+{
+
+    if(antsEaten == 0 && (age % 3) == 0) //Doodlebug starve or not
+    {
+        Critter *tempPtr = nullptr;
+        delete grid[gridX][gridY];
+        grid[gridX][gridY] = tempPtr;
+
+        return 1;
+    }
+
+    else
+    {
+        return 0;
+    }
 }
