@@ -44,6 +44,7 @@ public:
 	//virtual int checkAnt(Critter***, int, int) = 0;
 	virtual bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
 	virtual bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
+	virtual bool starve(Critter ***grid, int tempI, int tempJ) {};
 	virtual void incrementAntsEaten() {};
 };
 #endif

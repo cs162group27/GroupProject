@@ -13,18 +13,20 @@ using std::endl;
 Doodlebug::Doodlebug(): Critter(0, 0, 'X')
 {
     antsEaten = 0;
+    starveCount = 0;
 }
 
 Doodlebug::Doodlebug(const Doodlebug &obj):Critter(obj.age, obj.moved, obj.ascii)
 {
     antsEaten = 0;
+    starveCount = 0;
 }
 /******************************************************************************
 ** Description: Function that moves Doodlebuges.
 ******************************************************************************/
 bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int numCols)
 {
-	// Only move Doodlebug if Doodlebug hasn't already moved this turn
+    	// Only move Doodlebug if Doodlebug hasn't already moved this turn
 	if(!moved)
 	{
 		// To generate random number
@@ -111,8 +113,11 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 		while(!antFound && ((count1 < 1) || (count2 < 1) || (count3 < 1) || (count4 < 1)));
 
 		// If no Ants found around Doodlebug, move like an Ant.
-		if(!antFound)	
+		if(!antFound)
 		{
+			// Increment starveCount
+			starveCount++;	
+
 			// Generate random number
 			std::uniform_int_distribution<> dis(1, 4);
 			randNum = dis(gen);	// Assign generated randNum to variable
@@ -174,6 +179,7 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 				    return 0; // no ant eaten
 				}
 			}
+
 			else // Offbounds, doesn't move
 			{
 				return 0; // no ant eaten
@@ -182,7 +188,6 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 		// Else, an Ant has been found at bugX, bugY coordinates
 		else
 		{
-		
 			// Eat Ant
 			eatAnt(grid, bugX, bugY);
 
@@ -202,6 +207,7 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			return 1; // ant eaten
 		}
 	}
+
 	else	// Already moved this turn
 	{
 		return 0; // no ant eaten
@@ -296,14 +302,6 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
 	}
     }
 
-    else if(antsEaten == 0 && (age % 3) == 0) //Doodlebug starve or not
-    {
-        Critter *tempPtr = nullptr;
-        delete grid[gridX][gridY];
-        grid[gridX][gridY] = tempPtr;
-        return 1;
-    }	
-	
     else // No Doodlebugs old enough
     {
 	return 0;
@@ -326,10 +324,12 @@ void Doodlebug::eatAnt(Critter ***grid, int x, int y)
     delete grid[x][y];
     grid[x][y] = tempPtr;
 
+    starveCount = 0;
+
 //    antsEaten++;
 }
 
-/*void Doodlebug::survive(Critter ***grid, int x, int y)
+void Doodlebug::survive(Critter ***grid, int x, int y)
 {
     if(antsEaten == 0 && age >= 3)
     {
@@ -337,7 +337,27 @@ void Doodlebug::eatAnt(Critter ***grid, int x, int y)
 	delete grid[x][y];    
         grid[x][y] = tempPtr;
     }
-}*/
+}
+
+/******************************************************************************
+** Description: Function that implements Starve, where Doodlebugs die if they
+**		hadn't eaten in three days.
+******************************************************************************/
+bool Doodlebug::starve(Critter ***grid, int gridX, int gridY)
+{
+    // Determine if Doodlebug starves
+    if(age % 3 == 0 && starveCount >= 3)
+    {
+        Critter *tempPtr = nullptr;
+        delete grid[gridX][gridY];
+        grid[gridX][gridY] = tempPtr;
+     	return 1;
+    }
+    else // Doodlebug doesn't starve
+    {
+	return 0;
+    }
+}
 
 /******************************************************************************
 ** Description: Function that determines if adjacent space is offgrid.

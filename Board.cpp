@@ -49,7 +49,7 @@ void Board::display()
         {
             if (board[i][j] == nullptr)
             {
-                cout << '.' << " ";
+                cout << ' ' << " ";
             }
 
             else 
@@ -73,7 +73,9 @@ void Board::display()
 	cout << "doodlebugs: " << doodleC << endl;
 }
 
-
+/******************************************************************************
+** Description: Setters and Getters.
+******************************************************************************/
 
 // Sets the number of rows for the Board.
 void Board::setRows(int r)
@@ -129,7 +131,7 @@ void Board::setSteps(int s)
     steps = s;
 }
 
-//// Gets the number of steps to take.
+// Gets the number of steps to take.
 int Board::getSteps()
 {
     return steps;
@@ -244,7 +246,6 @@ void Board::run()
 				// Is the Critter a Doodlebug?
 				if(board[i][j]->getAscii() == 'X')
 				{
-				//	cout << "Are we in move doodlebug?" << endl;
 					// Move Doodlebug
 					bool antEaten = 0; // returns if Ant was eaten
 
@@ -255,6 +256,9 @@ void Board::run()
 					{
 						antCount--;
 					}
+
+
+
 				}
 			}	
 		}
@@ -272,7 +276,6 @@ void Board::run()
 				// Is the Critter an Ant?
 				if(board[i][j]->getAscii() == 'O')
 				{
-				//	cout << "Are we in move Ant?" << endl;
 					// Move Ant
 					board[i][j]->move(board, i, j, rows, cols);
 				}
@@ -282,7 +285,7 @@ void Board::run()
 	}
 
 	// STEP TWO: Breed Critters (Doodlebugs breed before Ants, for consistency)
-      	// A. Breed Doodlebugs first and see if they starve or not
+      	// A. Breed Doodlebugs first
 	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
@@ -301,10 +304,9 @@ void Board::run()
 						// Breed Doodlebug
 						doodlebugBred = board[i][j]->breed(board, i, j, rows, cols);
 
-						// If Doodlebug bred, increment count and reset age
+						// If Doodlebug bred, increment count
 						if(doodlebugBred)
 						{
-				//			cout << "Did we breed Doodlebug?" << endl;
 							doodlebugCount++;
 						}
 					}
@@ -333,7 +335,7 @@ void Board::run()
                                 // Breed  Ant
                                 antBred = board[i][j]->breed(board, i, j, rows, cols);
                                 
-                                // If Ant bred, increment count and reset Ant age
+                                // If Ant bred, increment count
                                 if(antBred)
                                 {
                                     antCount++;
@@ -342,18 +344,70 @@ void Board::run()
                         }
                     }
                 }
-        }	
+        }
 	
-	// STEP 3: Increment Critters' ages
+	// STEP 3: Starve Doodlebugs who hadn't eaten in three days
+	for(int i = 0; i < rows; i++)
+	{
+		for(int j = 0; j < cols; j++)
+		{
+			// Does the pointer point to a Critter?)
+			if(board[i][j] != nullptr)
+			{
+				// Is the Critter a Doodlebug?
+				if(board[i][j]->getAscii() == 'X')
+				{
+					bool starved = 0;
+		
+					// Starve Doodlebug
+					starved = board[i][j]->starve(board, i, j);
+		
+					// If Doodlebug starved, decrement Doodlebug count
+					if(starved)
+					{
+						doodlebugCount--;
+					}
+				}
+			}
+		}
+	}
+
+	// STEP 4: Increment Critters' ages
 	// Increment Critters' ages
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
 			if(board[i][j] != nullptr)
 				board[i][j]->incrementAge();
-	
-	// STEP 4: Display Board end of day - results of Critter actions.
+
+	// STEP 5: Display Board end of day - results of Critter actions.
 	display();
 	cout << "End of day " << k+1 << endl;
-        }
     }
+    deleteBoard();
+}
+
+/******************************************************************************
+** Description: Deletes objects.
+******************************************************************************/
+void Board::deleteBoard()
+{
+	// Delete objects in grid
+	for(int i = 0; i < rows; i++)
+	{
+		for(int j = 0; j < cols; j++)
+		{
+			if(board[i][j] != nullptr)
+			{
+				delete board[i][j];
+			}
+		}
+		
+		// Delete sub array
+		delete []board[i];
+	}
+
+	// Delete outer array
+	delete []board;
+	board = nullptr;
+}
 

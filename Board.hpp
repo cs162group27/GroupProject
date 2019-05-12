@@ -21,8 +21,10 @@ private:
     bool dataGatherer = true;
     
 public:
-	// Constructor with default values
+    // Constructor with default values
     Board(int s=1, int r=20, int c=20, int a=100, int d=5);
+   
+    // Getters and Setters 
     int getRows();
     void setRows(int);
     int getCols();
@@ -37,10 +39,14 @@ public:
     void setAntCount(int);
     int getDoodlebugCount();
     void setDoodlebugCount(int);
+
+    // Initializes first Board
     void initialize();
+
+    // Prints the Board
     void display();
-    void deleteBoard();
     void extraCredit();
     void run();
+    void deleteBoard();
 };
 #endif /* Board_hpp */
