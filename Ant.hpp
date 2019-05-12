@@ -1,14 +1,15 @@
-/******************************************************************************
-** Program name: Ant.hpp
-** Author: April Castaneda
-** Date: 05.05.2019
-** Description: Ant.hpp is the Ant class specification file.
-******************************************************************************/
+/*********************************************************************
+ ** Program name: Group Project
+ ** Author: Group 27
+ ** Date: 5/12/2019
+ ** Description: Ant.hpp is the Ant class specification file.
+**********************************************************************/
 #ifndef ANT_HPP
 #define ANT_HPP
-
 #include "Critter.hpp"
-class Board;	// In order to use Board pointers
+
+// In order to use Board pointers
+class Board;
 
 // Ant class declaration
 class Ant : public Critter
@@ -23,12 +24,10 @@ public:
 	// Setters & Getters are in Base class
 
 	// Functions that set Ant movement
-//	void move(int &tempI, int &tempJ);
 	bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
 
 	// Function that sets Ant's breeding
 	bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
-
 };
 #endif
 	

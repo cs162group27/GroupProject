@@ -1,38 +1,48 @@
-//
-// Created by Patrick Oh on 2019-05-07.
-//
+/*********************************************************************
+ ** Program name: Group Project
+ ** Author: Group 27
+ ** Date: 5/12/2019
+ ** Description: This is the Doodlebug class implementation file.
+ **********************************************************************/
 
 #include <random>
+#include <iostream>
 #include "Doodlebug.hpp"
 #include "Critter.hpp"
 
-#include <iostream>
 using std::cout;
 using std::endl;
 
+/******************************************************************************
+ ** Description: Constructor with default Doodlebug values.
+ ******************************************************************************/
 Doodlebug::Doodlebug(): Critter(0, 0, 'X')
 {
     antsEaten = 0;
     starveCount = 0;
 }
 
+/******************************************************************************
+ ** Description: Copy constructor.
+ ******************************************************************************/
 Doodlebug::Doodlebug(const Doodlebug &obj):Critter(obj.age, obj.moved, obj.ascii)
 {
     antsEaten = 0;
     starveCount = 0;
 }
+
 /******************************************************************************
 ** Description: Function that moves Doodlebuges.
 ******************************************************************************/
 bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int numCols)
 {
-    	// Only move Doodlebug if Doodlebug hasn't already moved this turn
+    // Only move Doodlebug if Doodlebug hasn't already moved this turn
 	if(!moved)
 	{
 		// To generate random number
 		int randNum = 0;
-		std::random_device seed;	// Will be used to obtain a seed for the random
-					// number engine
+		std::random_device seed;	/* Will be used to obtain a seed for the random
+                                                    number engine */
 		std::mt19937 gen(seed());	// Standard mersenne_twister_engine seeded with seed()
 
 		int bugX = gridX,
@@ -45,8 +55,8 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 		bool offBounds = 0;	// Variable to see if cell is off grid.
 		bool antFound = 0;
 
-		// Look at all directions around doodlebug and find a space that's not offgrid
-		// and contains an Ant
+		// Look at all directions around Doodlebug to find a space that's not offgrid
+		// that contains an Ant
 		do	
 		{
 			// Check South if not offgrid and there is an Ant
@@ -91,7 +101,7 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 				else
 					count3++;
 			}
-			// Check Wast if not offgrid and there is an Ant
+			// Check West if not offgrid and there is an Ant
 			if(!isOffGrid(gridX, gridY-1, numRows, numCols) && (count4<1))
 			{
 				if(isAnt(grid, gridX, gridY-1))
@@ -122,8 +132,8 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			std::uniform_int_distribution<> dis(1, 4);
 			randNum = dis(gen);	// Assign generated randNum to variable
 
-			// Do not move Doodlebug yet. Assign temporary variables and check
-			// neighboring cells.
+			/* Do not move Doodlebug yet. Assign temporary variables and check
+                                    neighboring cells. */
 			// If 1 = South
 			if(randNum == 1)
 			{
@@ -293,7 +303,7 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
         if(!offGrid && !occupied)
         {
             grid[bugX][bugY] = new Doodlebug;	// Create new Doodlebug
-	    setAge(0);	// Reset age of Doodlebug
+	    setAge(0);	                            // Reset age of Doodlebug
 	    return 1;
         }
 	else // No Doodlebugs bred
@@ -308,6 +318,9 @@ bool Doodlebug::breed(Critter ***grid, int gridX, int gridY, int numRows, int nu
     }	
 }
 
+/******************************************************************************
+ ** Description: Checks for Ant.
+ ******************************************************************************/
 int Doodlebug::checkAnt(Critter ***grid, int x, int y)
 {
     if(grid[x][y] -> getAscii() == 'O')
@@ -318,6 +331,9 @@ int Doodlebug::checkAnt(Critter ***grid, int x, int y)
     return antCount;
 }
 
+/******************************************************************************
+ ** Description: Eats Ant.
+ ******************************************************************************/
 void Doodlebug::eatAnt(Critter ***grid, int x, int y)
 {
     Critter *tempPtr = nullptr;
@@ -325,10 +341,11 @@ void Doodlebug::eatAnt(Critter ***grid, int x, int y)
     grid[x][y] = tempPtr;
 
     starveCount = 0;
-
-//    antsEaten++;
 }
 
+/******************************************************************************
+ ** Description: Doodlebug has eaten recently and survives!
+ ******************************************************************************/
 void Doodlebug::survive(Critter ***grid, int x, int y)
 {
     if(antsEaten == 0 && age >= 3)
@@ -438,5 +455,4 @@ bool Doodlebug::isOccupied(Critter ***grid, int x, int y)
 void Doodlebug::incrementAntsEaten()
 {
 	antsEaten++;
-    antCount--;
 }

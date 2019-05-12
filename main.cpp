@@ -1,9 +1,14 @@
-//#include <iostream>
+/*********************************************************************
+ ** Program name: Group Project
+ ** Author: Group 27
+ ** Date: 5/12/2019
+ ** Description: Main function for the Group Project.
+ *********************************************************************/
+
 #include <cstdlib>	// Header file needed to use srand
 #include <ctime>	// Header file needed to use stime
 
 #include "menu.hpp"
-//#include "Board.hpp"
 
 int main()
 {

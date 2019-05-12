@@ -1,8 +1,8 @@
 /*********************************************************************
 ** Program name: Group Project
-** Author: Katie Stutts
-** Date: 5/6/2019
-** Description:
+** Author: Group 27
+** Date: 5/12/2019
+** Description: Menu functions for the Group Project.
 *********************************************************************/
 
 #include <iostream>
@@ -27,12 +27,13 @@ int startMenu()
 
     selection = returnInt();
 
-    // while user's selection is less than 0 and greater than 2
+    // While user's selection is less than 0 and greater than 2
     while (selection <= 0 || selection > 3) {
         cout << "ERR. Please enter an valid input." << endl;
         selection = returnInt();
     }
-
+    
+    // User chooses to start with default values
     if (selection == 1)
     {
         cout << "Let's start the simulation ..." << endl;
@@ -45,14 +46,18 @@ int startMenu()
         }
         
 	    Board bd(steps, 20, 20, 100, 5); // Default values of 20x20 board,
-					// 100 ants, 5 doodlebugs
+                                                // 100 ants, 5 doodlebugs
 
         bd.run();
     }
+    
+    // User chooses to quit
     else if (selection == 2)
     {
         cout << "You decided to quit the program. Thanks for playing!" << endl;
     }
+    
+    // User chooses to enter their own values
     else if (selection == 3)
     {
         cout << "You selected the Extra Credit option!" << endl;
@@ -65,12 +70,13 @@ int startMenu()
 		int numDoodleBugs = getStartInfo("Please enter an integer to represent the number of Doodlebugs.", 1, (maxAnt - 1));
 		Board bd(steps, row, col, numAnts, numDoodleBugs);
 		bd.run();
-
 	}
-
     return selection;
 }
 
+/******************************************************************************
+ ** Description: Function that gets the starting values.
+ ******************************************************************************/
 int getStartInfo(std::string displayMessage, int start, int end)
 {
 	cout << displayMessage << endl;
@@ -82,4 +88,3 @@ int getStartInfo(std::string displayMessage, int start, int end)
 	}
 	return val;
 }
-

@@ -1,9 +1,9 @@
-/*******************************************************************************
- ** Author:       Victoria Fisher
- ** Date:         5/12/2019
- ** Description:  This class sets up the Board, initializes as an array of
- **               pointers, contains extraCredit() function to set up the Board.
- *******************************************************************************/
+/*********************************************************************
+ ** Program name: Group Project
+ ** Author: Group 27
+ ** Date: 5/12/2019
+ ** Description: This is the Board class implementation file.
+ ********************************************************************/
 
 #include "Board.hpp"
 #include "Ant.hpp"
@@ -61,16 +61,9 @@ void Board::display()
 		else
 			doodleC++;
             }
-
         }
-
         cout << endl;
     }
-	// Debugging display. Counts how many ants and doodlebugs are actually
-	// on the board, regardless what count says. Can delete once program
-	// works
-	cout << "ants: " << antC << endl;
-	cout << "doodlebugs: " << doodleC << endl;
 }
 
 /******************************************************************************
@@ -125,39 +118,41 @@ void Board::setDoodlebugs(int d)
     doodlebugs = d;
 }
 
-
+// Sets the number of steps.
 void Board::setSteps(int s)
 {
     steps = s;
 }
 
-// Gets the number of steps to take.
+// Gets the number of steps.
 int Board::getSteps()
 {
     return steps;
 }
 
+// Sets the Ant count.
 void Board::setAntCount(int aCount)
 {
     antCount = aCount;
 }
 
+// Gets the Ant count.
 int Board::getAntCount()
 {
     return antCount;
 }
 
+// Sets the Doodlebug count.
 void Board::setDoodlebugCount(int dCount)
 {
     doodlebugCount = dCount;
 }
 
+// Gets the Doodlebug count.
 int Board::getDoodlebugCount()
 {
     return doodlebugCount;
 }
-
-
 
 /* Initializes the Board to empty squares. Places Critters on Board.
 Citation for implementation: https://stackoverflow.com/questions/27430523/2d-array-of-object-pointers-in-c */
@@ -175,7 +170,7 @@ void Board::initialize()
         }
     }
 
-   // Create ants until required ants number reached
+  // Create Ants until requisite number reached
   while(antCount < ants)
   {	
 	aRow = rand()%rows;
@@ -188,10 +183,8 @@ void Board::initialize()
 		antCount++;
 	}
   }
-  //  }
 
-//    for (int i = 0; i < doodlebugs; i++) {
-   // Create doodleugs until required doodlebugs number reached 
+  // Create doodleugs until required doodlebugs number reached
   while(doodlebugCount < doodlebugs)
   {
 	dRow = rand()%rows;
@@ -204,7 +197,6 @@ void Board::initialize()
         	doodlebugCount++;
 	}
   }
-  //  }
 }
 
 /******************************************************************************
@@ -223,9 +215,9 @@ void Board::run()
 		if(board[i][j] != nullptr)
 			board[i][j]->incrementAge();
     
-    // Run Board. Doodlebugs move, Ant move, Doodlebug breed, Ant breed, 
-    // Doodlebug starve, Increment Critters age, Display resulting board 
-    // end of day. 
+    /* Run Board. Doodlebugs move, Ant move, Doodlebug breed, Ant breed,
+        Doodlebug starve, Increment Critters age, Display resulting board
+                end of day. */
     for (int k = 0; k < steps; k++)
     {
 	// Reset Critters' moved flag to 0
@@ -235,7 +227,7 @@ void Board::run()
 				board[i][j]->setMoved(0);
 
 	// STEP ONE: Move Critters (Doodlebugs move before Ants, requirement)
-      	// A: Move doodlebugs first
+    // A: Move doodlebugs first
 	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
@@ -256,16 +248,12 @@ void Board::run()
 					{
 						antCount--;
 					}
-
-
-
 				}
 			}	
 		}
-	
 	}
 
-      	// B: Move Ants next
+    // B: Move Ants next
 	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
@@ -281,11 +269,10 @@ void Board::run()
 				}
 			}	
 		}
-	
 	}
 
 	// STEP TWO: Breed Critters (Doodlebugs breed before Ants, for consistency)
-      	// A. Breed Doodlebugs first
+    // A. Breed Doodlebugs first
 	for (int i = 0; i < rows; i++)
         {
            	for(int j = 0; j < cols; j++)
@@ -313,7 +300,6 @@ void Board::run()
 				}
 			}	
 		}
-	
 	}
 
 	// B. Breed Ants next
@@ -346,7 +332,7 @@ void Board::run()
                 }
         }
 	
-	// STEP 3: Starve Doodlebugs who hadn't eaten in three days
+	// STEP 3: Starve Doodlebugs who haven't eaten in three days
 	for(int i = 0; i < rows; i++)
 	{
 		for(int j = 0; j < cols; j++)
@@ -410,4 +396,3 @@ void Board::deleteBoard()
 	delete []board;
 	board = nullptr;
 }
-

@@ -1,13 +1,14 @@
-/******************************************************************************
-** Program name: Critter.hpp
-** Author: April Castaneda
-** Date: 05.05.2019
-** Description: Critter.hpp is the Critter class specification file.
-******************************************************************************/
+/*********************************************************************
+ ** Program name: Group Project
+ ** Author: Group 27
+ ** Date: 5/12/2019
+ ** Description: Critter.hpp is the Critter class specification file.
+**********************************************************************/
 #ifndef CRITTER_HPP
 #define CRITTER_HPP
 
-class Board;	// In order to use Board class pointer
+// In order to use Board class pointer
+class Board;
 
 // Critter class declaration
 class Critter
@@ -44,7 +45,7 @@ public:
 	//virtual int checkAnt(Critter***, int, int) = 0;
 	virtual bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
 	virtual bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) = 0;
-	virtual bool starve(Critter ***grid, int tempI, int tempJ) {};
+    virtual bool starve(Critter ***grid, int tempI, int tempJ) {return 1;};
 	virtual void incrementAntsEaten() {};
 };
 #endif
