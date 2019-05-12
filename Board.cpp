@@ -247,14 +247,6 @@ void Board::run()
 				//	cout << "Are we in move doodlebug?" << endl;
 					// Move Doodlebug
 					bool antEaten = 0; // returns if Ant was eaten
-                    bool doodleStarve = 0;
-
-                    doodleStarve = board[i][j]->starveBug(board, i, j);
-
-                    if(doodleStarve)
-                    {
-                        doodlebugCount--;
-                    }
 
 					antEaten = board[i][j]->move(board, i, j, rows, cols);
 
@@ -263,6 +255,7 @@ void Board::run()
 					{
 						antCount--;
 					}
+
 
 
 				}

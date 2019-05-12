@@ -13,20 +13,27 @@ using std::endl;
 Doodlebug::Doodlebug(): Critter(0, 0, 'X')
 {
     antsEaten = 0;
+    starveCount = 0;
 }
 
 Doodlebug::Doodlebug(const Doodlebug &obj):Critter(obj.age, obj.moved, obj.ascii)
 {
     antsEaten = 0;
+    starveCount = 0;
 }
 /******************************************************************************
 ** Description: Function that moves Doodlebuges.
 ******************************************************************************/
 bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int numCols)
 {
-
-	// Only move Doodlebug if Doodlebug hasn't already moved this turn
-	if(!moved)
+    if(age % 4 == 0 && starveCount >= 3)
+    {
+        Critter *tempPtr = nullptr;
+        delete grid[gridX][gridY];
+        grid[gridX][gridY] = tempPtr;
+    }
+    // Only move Doodlebug if Doodlebug hasn't already moved this turn
+	else if(!moved)
 	{
 		// To generate random number
 		int randNum = 0;
@@ -112,7 +119,7 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 		while(!antFound && ((count1 < 1) || (count2 < 1) || (count3 < 1) || (count4 < 1)));
 
 		// If no Ants found around Doodlebug, move like an Ant.
-		if(!antFound)	
+		if(!antFound)
 		{
 			// Generate random number
 			std::uniform_int_distribution<> dis(1, 4);
@@ -125,24 +132,28 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			{
 			    bugX = gridX + 1;
 			    bugY = gridY;
+                starveCount++;
 			}
 			// If 2 == East
 			else if(randNum == 2)
 			{
 			    bugX = gridX;
 			    bugY = gridY + 1;
+                starveCount++;
 			}
 			// If 3 == North
 			else if(randNum == 3)
 			{
 			    bugX = gridX - 1;
 			    bugY = gridY;
+                starveCount++;
 			}
 			// Else 4 == West
 			else
 			{
 			    bugX = gridX;
 			    bugY = gridY - 1;
+                starveCount++;
 			}
 
 			// Now, see if neighboring cell is offBounds or occupied
@@ -167,26 +178,27 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 				    grid[gridX][gridY] = tempPtr;
 			
 				    grid[bugX][bugY]->setMoved(1);
+
+                    starveCount++;
 						
 				    return 0;	// no ant eaten	
 				}
 				else // Offbounds or occupied, doesn't move
 				{
+                    starveCount++;
 				    return 0; // no ant eaten
 				}
 			}
+
 			else // Offbounds, doesn't move
 			{
+                starveCount++;
 				return 0; // no ant eaten
 			}
 		}
 		// Else, an Ant has been found at bugX, bugY coordinates
 		else
 		{
-            if((age % 4) == 0)
-            {
-                antsEaten = 0;
-            }
 			// Eat Ant
 			eatAnt(grid, bugX, bugY);
 
@@ -206,6 +218,7 @@ bool Doodlebug::move(Critter ***grid, int gridX, int gridY, int numRows, int num
 			return 1; // ant eaten
 		}
 	}
+
 	else	// Already moved this turn
 	{
 		return 0; // no ant eaten
@@ -322,6 +335,8 @@ void Doodlebug::eatAnt(Critter ***grid, int x, int y)
     delete grid[x][y];
     grid[x][y] = tempPtr;
 
+    starveCount = 0;
+
 //    antsEaten++;
 }
 
@@ -415,22 +430,4 @@ void Doodlebug::incrementAntsEaten()
 {
 	antsEaten++;
     antCount--;
-}
-
-bool Doodlebug::starveBug(Critter ***grid, int gridX, int gridY)
-{
-
-    if(antsEaten == 0 && (age % 3) == 0) //Doodlebug starve or not
-    {
-        Critter *tempPtr = nullptr;
-        delete grid[gridX][gridY];
-        grid[gridX][gridY] = tempPtr;
-
-        return 1;
-    }
-
-    else
-    {
-        return 0;
-    }
 }
