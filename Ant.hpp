@@ -28,6 +28,7 @@ public:
 
 	// Function that sets Ant's breeding
 	bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
+
 };
 #endif
 	

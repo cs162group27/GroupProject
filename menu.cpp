@@ -44,11 +44,10 @@ int startMenu()
 			steps = returnInt();
         }
         
-	Board bd(steps, 20, 20, 100, 5); // Default values of 20x20 board,
+	    Board bd(steps, 20, 20, 100, 5); // Default values of 20x20 board,
 					// 100 ants, 5 doodlebugs
 
         bd.run();
-
     }
     else if (selection == 2)
     {

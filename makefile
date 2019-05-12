@@ -5,22 +5,39 @@
 ### Description: Makefile for Group Project
 ###
 
-CXX = g++
-CXXFLAGS = -std=c++0x
-CXXFLAGS += -Wall
-CXXFLAGS += -pedantic-errors
-CXXFLAGS += -g
+ CXX = g++
 
-LDFLAGS = -lboost_date_time
+ CXXFLAGS = -std=c++11
 
-SRCS = *.cpp
-EXEC = Group27
+ OBJS = main.o menu.o inputValidation.o Board.o Critter.o Ant.o Doodlebug.o
 
-build:
-	${CXX} ${CXXFLAGS} ${SRCS} -o ${EXEC}
+ SRCS = main.cpp menu.cpp inputValidation.cpp Board.cpp Critter.cpp Ant.cpp Doodlebug.cpp
 
-zip:
-	zip $(EXEC).zip *.cpp *.hpp *.* makefile
+ HEADERS = menu.hpp inputValidation.hpp Board.hpp Critter.hpp Ant.hpp Doodlebug.hpp
 
-clean:
-	rm -rf *o *.dSYM ${EXEC}
+ edit: ${OBJS}
+	${CXX} ${CXXFLAGS} ${OBJS} -o edit
+
+ main.o: main.cpp ${HEADERS}
+	${CXX} ${CXXFLAGS} main.cpp -c
+
+ menu.o: menu.cpp menu.hpp
+	${CXX} ${CXXFLAGS} menu.cpp -c
+
+ inputValidation.o: inputValidation.cpp inputValidation.hpp
+	${CXX} ${CXXFLAGS} inputValidation.cpp -c
+
+ Board.o: Board.cpp Board.hpp
+	${CXX} ${CXXFLAGS} Board.cpp -c
+
+ Critter.o: Critter.cpp Critter.hpp
+	${CXX} ${CXXFLAGS} Critter.cpp -c
+
+ Ant.o: Ant.cpp Ant.hpp
+	${CXX} ${CXXFLAGS} Ant.cpp -c
+
+ Doodlebug.o: Doodlebug.cpp Doodlebug.hpp
+	${CXX} ${CXXFLAGS} Doodlebug.cpp -c
+
+ clean:
+	rm edit ${OBJS}
