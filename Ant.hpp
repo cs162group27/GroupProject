@@ -23,10 +23,11 @@ public:
 	// Setters & Getters are in Base class
 
 	// Functions that set Ant movement
-	void move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
+//	void move(int &tempI, int &tempJ);
+	bool move(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
 
 	// Function that sets Ant's breeding
-	void breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
+	bool breed(Critter ***grid, int tempI, int tempJ, int numRows, int numCols) override;
 };
 #endif
 	

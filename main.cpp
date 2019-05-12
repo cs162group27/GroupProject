@@ -1,11 +1,19 @@
-#include <iostream>
+//#include <iostream>
+#include <cstdlib>	// Header file needed to use srand
+#include <ctime>	// Header file needed to use stime
+
 #include "menu.hpp"
-#include "Board.hpp"
+//#include "Board.hpp"
 
 int main()
 {
-    startMenu();
+	unsigned seed;	// Random generator seed
 
+	// Uses time function to get a seed value for srand
+	seed = time(0);
+	srand(seed);
 
-    return 0;
+	startMenu();
+
+	return 0;
 }
